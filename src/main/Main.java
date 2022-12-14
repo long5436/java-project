@@ -4,12 +4,11 @@
  * and open the template in the editor.
  */
 
-
 package main;
 
 import model.Model;
 import controllers.Controller;
-import view.ViewQuanLyHangHoa;
+import view.ViewMain;
 
 /**
  *
@@ -17,6 +16,6 @@ import view.ViewQuanLyHangHoa;
  */
 public class Main {
     public static void main(String[] args) {
-        new Controller(new ViewQuanLyHangHoa(), new Model());
+        new Controller(new ViewMain(), new Model());
     }
 }

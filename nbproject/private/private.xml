@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/data/java/project/src/main/Main.java</file>
-            <file>file:/F:/data/java/project/src/main/Test.java</file>
-            <file>file:/F:/data/java/project/src/view/PanelLoai.java</file>
-            <file>file:/F:/data/java/project/src/databaseutil/DatabaseUtil.java</file>
-            <file>file:/F:/data/java/project/src/view/ViewQuanLyHangHoa.java</file>
-            <file>file:/F:/data/java/project/src/view/PanelSanPham.java</file>
+            <file>file:/F:/data/java/project/src/view/ViewMain.java</file>
+            <file>file:/F:/data/java/project/src/view/ViewPanelProduct.java</file>
+            <file>file:/F:/data/java/project/src/view/ViewPanelCategory.java</file>
         </group>
     </open-files>
 </project-private>

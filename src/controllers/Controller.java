@@ -5,7 +5,7 @@
 package controllers;
 
 import javax.swing.JFrame;
-import view.ViewQuanLyHangHoa;
+import view.ViewMain;
 import model.Model;
 
 /**
@@ -14,10 +14,10 @@ import model.Model;
  */
 public class Controller {
 
-    private ViewQuanLyHangHoa view;
+    private ViewMain view;
     private Model model;
 
-    public Controller(ViewQuanLyHangHoa view, Model model) {
+    public Controller(ViewMain view, Model model) {
         this.view = view;
         this.model = model;
 

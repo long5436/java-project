@@ -8,6 +8,6 @@ package controllers;
  *
  * @author Long
  */
-public class LoaiController {
-    
+public class CategoryController {
+
 }
