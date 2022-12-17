@@ -19,7 +19,7 @@ public class ProductDAO extends DatabaseUtil {
     public static boolean addProduct(Product product) throws Exception {
         try {
 
-            String sql = "INSERT INTO tbl_sanpham VALUE (?,?,?,?,?)";
+            String sql = "INSERT INTO tbl_product VALUE (?,?,?,?,?)";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -43,7 +43,7 @@ public class ProductDAO extends DatabaseUtil {
     public static boolean deleteProduct(String productId) throws Exception {
         try {
 
-            String sql = "DELETE FROM tbl_sanpham WHERE ma_san_pham = ?";
+            String sql = "DELETE FROM tbl_product WHERE product_id = ?";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -63,12 +63,12 @@ public class ProductDAO extends DatabaseUtil {
     public static boolean editProduct(String productId, Product product) throws Exception {
         try {
 
-            String sql = "UPDATE tbl_sanpham SET "
-                    + "ma_loai = ?, "
-                    + "ten_san_pham = ?, "
-                    + "mo_ta = ?, "
-                    + "gia_ban = ?"
-                    + "WHERE ma_san_pham = ?";
+            String sql = "UPDATE tbl_product SET "
+                    + "category_id = ?, "
+                    + "product_name = ?, "
+                    + "description = ?, "
+                    + "price = ?"
+                    + "WHERE product_id = ?";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -95,7 +95,7 @@ public class ProductDAO extends DatabaseUtil {
 
         try {
 
-            String sql = "SELECT * FROM tbl_sanpham";
+            String sql = "SELECT * FROM tbl_product";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -128,7 +128,7 @@ public class ProductDAO extends DatabaseUtil {
 
         try {
 
-            String sql = "SELECT * FROM tbl_sanpham where ma_loai = ?";
+            String sql = "SELECT * FROM tbl_product where category_id = ?";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -163,7 +163,7 @@ public class ProductDAO extends DatabaseUtil {
 
         try {
 
-            String sql = "SELECT * FROM tbl_sanpham where ten_san_pham like \'%" + keyword + "%\'";
+            String sql = "SELECT * FROM tbl_product where product_name like \'%" + keyword + "%\'";
 
             PreparedStatement ps = createPreparedStatement(sql);
 

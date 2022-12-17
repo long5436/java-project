@@ -26,15 +26,15 @@ public class CategoryModel {
         return CategoryDAO.addCategory(category);
     }
 
-    public boolean xoaCategory(String maCategory) throws Exception {
+    public boolean deleteCategory(String maCategory) throws Exception {
         return CategoryDAO.deleteCategory(maCategory);
     }
 
-    public boolean suaCategory(String maCategory, Category Category) throws Exception {
+    public boolean editCategory(String maCategory, Category Category) throws Exception {
         return CategoryDAO.editCategory(maCategory, Category);
     }
 
-    public ArrayList<Category> layDanhSachCategory() throws Exception {
+    public ArrayList<Category> getCategories() throws Exception {
         ArrayList<Category> ds = CategoryDAO.getCategories();
 
         this.productCategoryList = ds;

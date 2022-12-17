@@ -20,7 +20,7 @@ public class CategoryDAO extends DatabaseUtil {
     public static boolean addCategory(Category category) throws Exception {
         try {
 
-            String sql = "INSERT INTO tbl_loai VALUE (?,?)";
+            String sql = "INSERT INTO tbl_category VALUE (?,?)";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -41,7 +41,7 @@ public class CategoryDAO extends DatabaseUtil {
     public static boolean deleteCategory(String categoryId) throws Exception {
         try {
 
-            String sql = "DELETE FROM tbl_loai WHERE ma_loai = ?";
+            String sql = "DELETE FROM tbl_category WHERE category_id = ?";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -61,7 +61,7 @@ public class CategoryDAO extends DatabaseUtil {
     public static boolean editCategory(String categoryId, Category category) throws Exception {
         try {
 
-            String sql = "UPDATE tbl_loai SET ten_loai = ? WHERE ma_loai = ?";
+            String sql = "UPDATE tbl_category SET category_name = ? WHERE category_id = ?";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -85,7 +85,7 @@ public class CategoryDAO extends DatabaseUtil {
 
         try {
 
-            String sql = "SELECT * FROM tbl_loai";
+            String sql = "SELECT * FROM tbl_category";
 
             PreparedStatement ps = createPreparedStatement(sql);
 

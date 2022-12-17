@@ -98,4 +98,12 @@ public class ViewMain extends javax.swing.JFrame {
     private view.ViewPanelCategory viewPanelCategory1;
     private view.ViewPanelProduct viewPanelProduct1;
     // End of variables declaration//GEN-END:variables
+
+    public ViewPanelCategory getViewPanelCategory1() {
+        return viewPanelCategory1;
+    }
+
+    public ViewPanelProduct getViewPanelProduct1() {
+        return viewPanelProduct1;
+    }
 }

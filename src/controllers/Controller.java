@@ -23,13 +23,15 @@ public class Controller {
 
         view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         view.setVisible(true);
+        view.setTitle("Quản lý hàng hoá");
 
         init();
 
     }
 
     private void init() {
-
+        new CategoryController(view.getViewPanelCategory1(), model);
+        
     }
 
 }
