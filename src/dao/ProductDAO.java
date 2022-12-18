@@ -72,7 +72,7 @@ public class ProductDAO extends DatabaseUtil {
 
             PreparedStatement ps = createPreparedStatement(sql);
 
-            ps.setString(1, product.getProductId());
+            ps.setString(1, product.getCategoryId());
             ps.setString(2, product.getProductName());
             ps.setString(3, product.getDescription());
             ps.setDouble(4, product.getPrice());

@@ -4,6 +4,7 @@
  */
 package view;
 
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 
@@ -18,7 +19,11 @@ public class ViewMain extends javax.swing.JFrame {
      */
     public ViewMain() {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
+
+            FlatLaf theme = new FlatLightLaf();
+            UIManager.put("Button.arc", 999);
+            UIManager.setLookAndFeel(theme);
+            // FlatLaf.
 
         } catch (Exception e) {
         }
@@ -32,7 +37,7 @@ public class ViewMain extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         tabPaneMain = new javax.swing.JTabbedPane();

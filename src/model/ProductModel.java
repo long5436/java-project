@@ -71,7 +71,7 @@ public class ProductModel {
         return a.compareTo(b);
     }
 
-    public ArrayList<Product> sapXepTheoTen() {
+    public ArrayList<Product> sortByName() {
         @SuppressWarnings("unchecked")
         ArrayList<Product> newArr = (ArrayList<Product>) listProduct.clone();
 
@@ -86,7 +86,7 @@ public class ProductModel {
         return newArr;
     }
 
-    public ArrayList<Product> sapXepTheoGia() {
+    public ArrayList<Product> sortByPrice() {
         @SuppressWarnings("unchecked")
         ArrayList<Product> newArr = (ArrayList<Product>) listProduct.clone();
 
@@ -102,7 +102,7 @@ public class ProductModel {
         return newArr;
     }
 
-    public ArrayList<Product> sapXepTheoGiaRoiTheoTen() {
+    public ArrayList<Product> sortByPriceThenByName() {
         @SuppressWarnings("unchecked")
         ArrayList<Product> newArr = (ArrayList<Product>) listProduct.clone();
 
@@ -121,7 +121,7 @@ public class ProductModel {
         return newArr;
     }
 
-    public ArrayList<Product> sapXepTheoTenRoiTheoGia() {
+    public ArrayList<Product> sortByNameThenByPrice() {
         @SuppressWarnings("unchecked")
         ArrayList<Product> newArr = (ArrayList<Product>) listProduct.clone();
 

@@ -31,7 +31,7 @@ public class Controller {
 
     private void init() {
         new CategoryController(view.getViewPanelCategory1(), model);
-        
+        new ProductController(view.getViewPanelProduct1(), model);
     }
 
 }

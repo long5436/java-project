@@ -48,15 +48,15 @@ public class CategoryController {
         view.getTxtCategoryName().setEditable(false);
         view.getTxtCategoryId().setEditable(false);
 
-        loadData();
-        renderTable();
-
         view.getTblCategoryView().addMouseListener(tableListener());
         view.getBtnToggleAdd().addActionListener(handleToggleAdd());
         view.getBtnAdd().addActionListener(handleAdd());
         view.getBtnToggleEdit().addActionListener(handleToggleEdit());
         view.getBtnEdit().addActionListener(handleEdit());
         view.getBtnDelete().addActionListener(handleDelete());
+
+        loadData();
+        renderTable();
 
     }
 
