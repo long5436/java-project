@@ -21,7 +21,7 @@ public class ViewMain extends javax.swing.JFrame {
         try {
 
             FlatLaf theme = new FlatLightLaf();
-            UIManager.put("Button.arc", 999);
+            // UIManager.put("Button.arc", 999);
             UIManager.setLookAndFeel(theme);
             // FlatLaf.
 
@@ -37,7 +37,8 @@ public class ViewMain extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         tabPaneMain = new javax.swing.JTabbedPane();

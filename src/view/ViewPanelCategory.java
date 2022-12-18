@@ -6,6 +6,7 @@ package view;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -51,6 +52,7 @@ public class ViewPanelCategory extends javax.swing.JPanel {
         btnToggleAdd = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        checkSearch = new javax.swing.JCheckBox();
 
         jLabel17.setText("Mã loại sản phẩm:");
 
@@ -92,7 +94,7 @@ public class ViewPanelCategory extends javax.swing.JPanel {
         tblCategoryView.setShowGrid(true);
         jScrollPane1.setViewportView(tblCategoryView);
 
-        cboSort2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn tiêu chí" }));
+        cboSort2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn tiêu chí", "Theo A-Z", "Theo Z-A", " " }));
 
         btnToggleEdit.setText("Sửa");
 
@@ -136,17 +138,19 @@ public class ViewPanelCategory extends javax.swing.JPanel {
                             .addComponent(jLabel24))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addGap(18, 18, 18)
-                        .addComponent(cboSort2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addGap(18, 18, 18)
+                        .addComponent(checkSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboSort2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
@@ -181,7 +185,8 @@ public class ViewPanelCategory extends javax.swing.JPanel {
                         .addComponent(jLabel21))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdd)
-                        .addComponent(btnEdit)))
+                        .addComponent(btnEdit))
+                    .addComponent(checkSearch))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -194,6 +199,7 @@ public class ViewPanelCategory extends javax.swing.JPanel {
     private javax.swing.JButton btnToggleAdd;
     private javax.swing.JButton btnToggleEdit;
     private javax.swing.JComboBox<String> cboSort2;
+    private javax.swing.JCheckBox checkSearch;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -248,5 +254,9 @@ public class ViewPanelCategory extends javax.swing.JPanel {
 
     public JTextField getTxtCategoryId() {
         return txtCategoryId;
+    }
+
+    public JCheckBox getCheckSearch() {
+        return checkSearch;
     }
 }

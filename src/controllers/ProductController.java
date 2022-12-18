@@ -68,11 +68,6 @@ public class ProductController {
         view.getBtnEdit().setEnabled(false);
         view.getBtnToggleEdit().setEnabled(false);
 
-        loadDataCategory();
-        renderComboxCategory();
-        loadDataProduct();
-        renderTable();
-
         view.getTblProductView().addMouseListener(tableListener());
         view.getBtnToggleAdd().addActionListener(handleToggleAdd());
         view.getBtnAdd().addActionListener(handleAdd());
@@ -85,6 +80,11 @@ public class ProductController {
 
         view.getCboSort().addItemListener(handleComboBoxSelect(1));
         view.getCboShowCategory().addItemListener(handleComboBoxSelect(2));
+
+        loadDataCategory();
+        renderComboxCategory();
+        loadDataProduct();
+        renderTable();
 
     }
 
@@ -113,12 +113,15 @@ public class ProductController {
                 if (ie.getStateChange() == 1) {
                     indexCategorySeleted = 0;
                     indexSort = 0;
+                    view.getCboSort().setSelectedIndex(0);
+                    view.getCboShowCategory().setSelectedIndex(0);
                 } else {
                     view.getTxtSearch().setText("");
                     loadDataProduct();
                     renderTable();
                 }
 
+                view.getBtnToggleAdd().setEnabled(ie.getStateChange() != 1);
                 view.getBtnSearch().setEnabled(ie.getStateChange() == 1);
                 view.getTxtSearch().setEditable(ie.getStateChange() == 1);
             }
@@ -306,6 +309,7 @@ public class ProductController {
                     loadDataToField(indexTableSelected);
                 } else {
                     addStatus = true;
+                    editStatus = false;
                     view.getBtnToggleAdd().setText("Huỷ thêm");
 
                     loadDataToField(-1);
@@ -320,6 +324,8 @@ public class ProductController {
                 view.getCboProductCategory().setVisible(addStatus);
 
                 view.getBtnAdd().setEnabled(addStatus);
+                view.getBtnToggleEdit().setEnabled(editStatus);
+                view.getBtnDelete().setEnabled(!addStatus && indexTableSelected >= 0);
             }
         };
     }
@@ -351,7 +357,7 @@ public class ProductController {
         view.getCboProductCategory().setSelectedIndex(0);
     }
 
-    public MouseAdapter tableListener() {
+    private MouseAdapter tableListener() {
         return new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -363,6 +369,11 @@ public class ProductController {
 
                 view.getBtnToggleEdit().setEnabled(index >= 0);
                 view.getBtnDelete().setEnabled(index >= 0);
+
+                addStatus = false;
+                view.getBtnToggleAdd().setText("Thêm mới");
+                view.getBtnAdd().setEnabled(false);
+
             }
         };
     }

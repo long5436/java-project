@@ -109,4 +109,36 @@ public class CategoryDAO extends DatabaseUtil {
         return ds;
     }
 
+    public static ArrayList<Category> searchCategory(String keyword) throws Exception {
+
+        ArrayList<Category> ds = new ArrayList<>();
+
+        try {
+
+            String sql = "SELECT * FROM tbl_category where category_name like \'%" + keyword + "%\'";
+
+            PreparedStatement ps = createPreparedStatement(sql);
+
+            // ps.setString(1, tuKhoa);
+
+            // int kq = ps.executeUpdate();
+            ResultSet data = ps.executeQuery();
+
+            while (data.next()) {
+                Category sp = new Category(
+                        data.getString(1),
+                        data.getString(2));
+
+                ds.add(sp);
+            }
+
+            System.out.println("Lay thanh cong");
+
+        } catch (Exception e) {
+            System.out.println("Loi lay du lieu " + e);
+        }
+
+        return ds;
+    }
+
 }

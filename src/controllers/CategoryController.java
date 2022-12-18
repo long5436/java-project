@@ -7,9 +7,12 @@ package controllers;
 import entities.Category;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
+import javax.swing.JOptionPane;
 import model.Model;
 import view.ViewPanelCategory;
 
@@ -24,11 +27,15 @@ public class CategoryController {
     private ArrayList<Category> listData;
     private boolean editStatus;
     private boolean addStatus;
+    private int indexSort;
+    private int indexTableSelect;
 
     public CategoryController(ViewPanelCategory view, Model model) {
         this.model = model;
         this.view = view;
         this.listData = new ArrayList<>();
+        this.indexSort = 0;
+        this.indexTableSelect = -1;
 
         init();
     }
@@ -54,10 +61,65 @@ public class CategoryController {
         view.getBtnToggleEdit().addActionListener(handleToggleEdit());
         view.getBtnEdit().addActionListener(handleEdit());
         view.getBtnDelete().addActionListener(handleDelete());
+        view.getBtnSearch().addActionListener(handleSearch());
+
+        view.getCboSort2().addItemListener(handleComboBoxSelect());
+        view.getCheckSearch().addItemListener(handleCheckSearch());
 
         loadData();
         renderTable();
 
+    }
+
+    private ActionListener handleSearch() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String keyWord = view.getTxtSearch().getText();
+                if (!keyWord.equals("")) {
+                    try {
+                        listData = model.getCategoryModel().searchCategory(keyWord);
+                        renderTable();
+                    } catch (Exception ex) {
+                        // TODO: handle exception
+                    }
+                }
+            }
+        };
+    }
+
+    private ItemListener handleCheckSearch() {
+        return new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent ie) {
+                if (ie.getStateChange() == 1) {
+                    indexSort = 0;
+                    view.getCboSort2().setSelectedIndex(0);
+                } else {
+                    view.getTxtSearch().setText("");
+                    loadData();
+                    renderTable();
+                }
+
+                view.getBtnToggleAdd().setEnabled(ie.getStateChange() != 1);
+                view.getBtnSearch().setEnabled(ie.getStateChange() == 1);
+                view.getTxtSearch().setEditable(ie.getStateChange() == 1);
+            }
+        };
+    }
+
+    private ItemListener handleComboBoxSelect() {
+        return new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent arg0) {
+
+                indexSort = view.getCboSort2().getSelectedIndex();
+                loadData();
+
+                renderTable();
+            }
+        };
     }
 
     private ActionListener handleDelete() {
@@ -65,16 +127,20 @@ public class CategoryController {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int index = view.getTblCategoryView().getSelectedRow();
-                String id = listData.get(index).getCategoryId();
+                int confirm = showMessageConfirm("Bạn có chắc muốn xóa không");
+                if (confirm == 0) {
 
-                try {
-                    model.getCategoryModel().deleteCategory(id);
+                    int index = view.getTblCategoryView().getSelectedRow();
+                    String id = listData.get(index).getCategoryId();
 
-                    handleAfterChangeData();
+                    try {
+                        model.getCategoryModel().deleteCategory(id);
 
-                } catch (Exception ex) {
-                    System.out.println("Có lỗi xãy ra");
+                        handleAfterChangeData();
+
+                    } catch (Exception ex) {
+                        System.out.println("Có lỗi xãy ra");
+                    }
                 }
             }
         };
@@ -161,10 +227,15 @@ public class CategoryController {
                 if (addStatus) {
                     addStatus = false;
                     view.getBtnToggleAdd().setText("Thêm mới");
+                    loadDataToField(indexTableSelect);
                 } else {
                     addStatus = true;
+                    editStatus = false;
                     view.getBtnToggleAdd().setText("Huỷ thêm");
+                    loadDataToField(-1);
                 }
+                view.getBtnDelete().setEnabled(!addStatus && indexTableSelect >= 0);
+                view.getBtnToggleEdit().setEnabled(editStatus);
                 view.getTxtCategoryName().setEditable(addStatus);
                 view.getTxtCategoryId().setEditable(addStatus);
                 view.getBtnAdd().setEnabled(addStatus);
@@ -173,19 +244,27 @@ public class CategoryController {
         };
     }
 
-    public MouseAdapter tableListener() {
+    private void loadDataToField(int index) {
+        boolean check = index >= 0;
+
+        view.getTxtCategoryId().setText(check ? listData.get(index).getCategoryId() : "");
+        view.getTxtCategoryName().setText(check ? listData.get(index).getCategoryName() : "");
+    }
+
+    private MouseAdapter tableListener() {
         return new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-
                 int index = view.getTblCategoryView().getSelectedRow();
-                boolean check = index >= 0;
+                indexTableSelect = index;
+                loadDataToField(index);
 
-                view.getTxtCategoryId().setText(check ? listData.get(index).getCategoryId() : "");
-                view.getTxtCategoryName().setText(check ? listData.get(index).getCategoryName() : "");
+                view.getBtnToggleEdit().setEnabled(index >= 0);
+                view.getBtnDelete().setEnabled(index >= 0);
 
-                view.getBtnToggleEdit().setEnabled(check);
-                view.getBtnDelete().setEnabled(check);
+                addStatus = false;
+                view.getBtnToggleAdd().setText("Thêm mới");
+                view.getBtnAdd().setEnabled(false);
             }
         };
     }
@@ -202,7 +281,25 @@ public class CategoryController {
 
     private void loadData() {
         try {
-            listData = model.getCategoryModel().getCategories();
+
+            switch (indexSort) {
+                case 1:
+                    listData = model.getCategoryModel().sortByAZ();
+                    break;
+                case 2:
+                    listData = model.getCategoryModel().sortByZA();
+                    break;
+                // case 3:
+                // listData = model.getProductModel().sortByNameThenByPrice();
+                // break;
+                // case 4:
+                // listData = model.getProductModel().sortByPriceThenByName();
+                // break;
+                case 0:
+                default:
+                    listData = model.getCategoryModel().getCategories();
+                    break;
+            }
         } catch (Exception e) {
             System.out.println("Có lỗi xãy ra");
         }
@@ -216,5 +313,21 @@ public class CategoryController {
             Object[] ob = new Object[] { cate.getCategoryId(), cate.getCategoryName() };
             table.addRow(ob);
         }
+    }
+
+    private int showMessageConfirm(String message) {
+        Object[] options = { "Có", "Không" };
+        int confirm = JOptionPane.showOptionDialog(
+                null,
+                message,
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        return confirm;
+
     }
 }

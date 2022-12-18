@@ -9,6 +9,8 @@ package model;
 import java.util.ArrayList;
 import entities.Category;
 import dao.CategoryDAO;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -41,4 +43,48 @@ public class CategoryModel {
 
         return this.productCategoryList;
     }
+
+    private int compareName(String ten1, String ten2) {
+
+        String a = ten1.toLowerCase();
+        String b = ten2.toLowerCase();
+
+        return a.compareTo(b);
+    }
+
+    public ArrayList<Category> sortByAZ() {
+        @SuppressWarnings("unchecked")
+        ArrayList<Category> newArr = (ArrayList<Category>) productCategoryList.clone();
+
+        Collections.sort(newArr, new Comparator<Category>() {
+            @Override
+            public int compare(Category ct1, Category ct2) {
+
+                return compareName(ct1.getCategoryName(), ct2.getCategoryName());
+            }
+        });
+
+        return newArr;
+    }
+
+    public ArrayList<Category> sortByZA() {
+        @SuppressWarnings("unchecked")
+        ArrayList<Category> newArr = (ArrayList<Category>) productCategoryList.clone();
+
+        Collections.sort(newArr, new Comparator<Category>() {
+            @Override
+            public int compare(Category ct1, Category ct2) {
+
+                return compareName(ct2.getCategoryName(), ct1.getCategoryName());
+            }
+        });
+
+        return newArr;
+    }
+
+    public ArrayList<Category> searchCategory(String keyword) throws Exception {
+        productCategoryList = CategoryDAO.searchCategory(keyword);
+        return productCategoryList;
+    }
+
 }
