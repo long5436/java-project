@@ -5,8 +5,9 @@
 package controllers;
 
 import javax.swing.JFrame;
-import view.ViewMain;
+import view.ViewManage;
 import model.Model;
+import view.ViewMain;
 
 /**
  *
@@ -24,14 +25,16 @@ public class Controller {
         view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         view.setVisible(true);
         view.setTitle("Quản lý hàng hoá");
+        view.setLocationRelativeTo(null);
 
         init();
 
     }
 
     private void init() {
-        new CategoryController(view.getViewPanelCategory1(), model);
-        new ProductController(view.getViewPanelProduct1(), model);
+        // new CategoryController(view.getViewPanelCategory1(), model);
+        // new ProductController(view.getViewPanelProduct1(), model);
+
     }
 
 }

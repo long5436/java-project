@@ -4,21 +4,20 @@
  */
 package controllers;
 
-import java.util.ArrayList;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
-import entities.Category;
-import entities.Product;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import model.Model;
 import view.ViewPanelProduct;
+import model.Model;
+import entities.Category;
+import entities.Product;
 
 /**
  *
@@ -77,7 +76,6 @@ public class ProductController {
         view.getBtnSearch().addActionListener(handleSearch());
 
         view.getCheckSearch().addItemListener(handleCheckSearch());
-
         view.getCboSort().addItemListener(handleComboBoxSelect(1));
         view.getCboShowCategory().addItemListener(handleComboBoxSelect(2));
 
@@ -98,7 +96,7 @@ public class ProductController {
                         listProduct = model.getProductModel().searchProduct(keyWord);
                         renderTable();
                     } catch (Exception ex) {
-                        // TODO: handle exception
+                        JOptionPane.showMessageDialog(view, "Lỗi tim kiếm");
                     }
                 }
             }
@@ -164,16 +162,17 @@ public class ProductController {
 
                         if (confirm == 0) {
 
-                            model.getProductModel().deleteProduct(productId);
+                            boolean check = model.getProductModel().deleteProduct(productId);
 
                             loadDataProduct();
                             renderTable();
-
                             loadDataToField(-1);
+
+                            JOptionPane.showMessageDialog(view, check ? "Xoá thành công" : "Xoá không thành công");
                         }
 
                     } catch (Exception ex) {
-                        System.out.println("Có lỗi xãy ra");
+                        JOptionPane.showMessageDialog(view, "Có lỗi xãy ra");
                     }
                 }
 
@@ -205,7 +204,7 @@ public class ProductController {
                         Product prod = new Product(productId, cateId, productName, description, price);
 
                         try {
-                            model.getProductModel().editProduct(productId, prod);
+                            boolean checkEdit = model.getProductModel().editProduct(productId, prod);
 
                             editStatus = false;
                             view.getBtnEdit().setEnabled(editStatus);
@@ -218,8 +217,10 @@ public class ProductController {
 
                             loadDataToField(-1);
 
+                            JOptionPane.showMessageDialog(view, checkEdit ? "Sửa thành công" : "Sửa không thành công");
+
                         } catch (Exception ex) {
-                            // 5 TODO: handle exception
+                            JOptionPane.showMessageDialog(view, "Có lỗi xãy ra");
                         }
                     }
                 }
@@ -251,7 +252,7 @@ public class ProductController {
                         Product prod = new Product(productId, cateId, productName, description, price);
 
                         try {
-                            model.getProductModel().addProduct(prod);
+                            boolean checkAdd = model.getProductModel().addProduct(prod);
 
                             addStatus = false;
                             view.getBtnAdd().setEnabled(addStatus);
@@ -264,8 +265,10 @@ public class ProductController {
 
                             loadDataToField(-1);
 
+                            JOptionPane.showMessageDialog(view, checkAdd ? "Thêm thành công" : "Thêm không thành công");
+
                         } catch (Exception ex) {
-                            // 5 TODO: handle exception
+                            JOptionPane.showMessageDialog(view, "Có lỗi xãy ra");
                         }
                     }
                 }
@@ -354,7 +357,7 @@ public class ProductController {
         view.getTxtProductPrice().setText(check ? prod.getPrice() + "" : "");
         view.getTxtProductDescription().setText(check ? prod.getDescription() : "");
         view.getTxtCategoryId().setText(indexCate > 0 ? cateName : "");
-        view.getCboProductCategory().setSelectedIndex(0);
+        view.getCboProductCategory().setSelectedIndex(indexCate);
     }
 
     private MouseAdapter tableListener() {
@@ -382,7 +385,7 @@ public class ProductController {
         try {
             listCategory = model.getCategoryModel().getCategories();
         } catch (Exception e) {
-            // TODO: handle exception
+            JOptionPane.showMessageDialog(view, "Lỗi tải dữ liệu");
         }
     }
 
@@ -406,7 +409,7 @@ public class ProductController {
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
+            JOptionPane.showMessageDialog(view, "Lỗi tải dữ liệu");
         }
     }
 

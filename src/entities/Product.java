@@ -6,7 +6,7 @@ package entities;
 
 /**
  *
- * @author nguye
+ * @author long
  */
 public class Product {
 

@@ -81,7 +81,7 @@ public class CategoryController {
                         listData = model.getCategoryModel().searchCategory(keyWord);
                         renderTable();
                     } catch (Exception ex) {
-                        // TODO: handle exception
+                        JOptionPane.showMessageDialog(view, "Lỗi tìm kiếm");
                     }
                 }
             }
@@ -134,12 +134,13 @@ public class CategoryController {
                     String id = listData.get(index).getCategoryId();
 
                     try {
-                        model.getCategoryModel().deleteCategory(id);
+                        Boolean check = model.getCategoryModel().deleteCategory(id);
 
                         handleAfterChangeData();
+                        JOptionPane.showMessageDialog(view, check ? "Xoá thành công" : "Xoá không thành công");
 
                     } catch (Exception ex) {
-                        System.out.println("Có lỗi xãy ra");
+                        JOptionPane.showMessageDialog(view, "Có lỗi xãy ra");
                     }
                 }
             }
@@ -157,7 +158,7 @@ public class CategoryController {
                     Category cate = new Category(id, name);
 
                     try {
-                        model.getCategoryModel().editCategory(id, cate);
+                        boolean check = model.getCategoryModel().editCategory(id, cate);
 
                         handleAfterChangeData();
 
@@ -166,8 +167,10 @@ public class CategoryController {
                         view.getBtnEdit().setEnabled(editStatus);
                         view.getBtnToggleEdit().setText("Sủa");
 
+                        JOptionPane.showMessageDialog(view, check ? "Sửa thành công" : "Sửa không thành công");
+
                     } catch (Exception ex) {
-                        System.out.println("Có lỗi xãy ra");
+                        JOptionPane.showConfirmDialog(view, "Có lỗi xẫy ra");
                     }
 
                 }
@@ -186,7 +189,7 @@ public class CategoryController {
                     Category cate = new Category(id, name);
 
                     try {
-                        model.getCategoryModel().addCategory(cate);
+                        boolean check = model.getCategoryModel().addCategory(cate);
 
                         handleAfterChangeData();
 
@@ -194,8 +197,9 @@ public class CategoryController {
                         view.getBtnAdd().setEnabled(addStatus);
                         view.getBtnToggleAdd().setText("Sủa");
 
+                        JOptionPane.showMessageDialog(view, check ? "Thêm thành công" : "Thêm không thành công");
                     } catch (Exception ex) {
-                        System.out.println("Có lỗi xãy ra");
+                        JOptionPane.showMessageDialog(view, "Có lỗi xãy ra");
                     }
                 }
             }
@@ -289,19 +293,13 @@ public class CategoryController {
                 case 2:
                     listData = model.getCategoryModel().sortByZA();
                     break;
-                // case 3:
-                // listData = model.getProductModel().sortByNameThenByPrice();
-                // break;
-                // case 4:
-                // listData = model.getProductModel().sortByPriceThenByName();
-                // break;
                 case 0:
                 default:
                     listData = model.getCategoryModel().getCategories();
                     break;
             }
         } catch (Exception e) {
-            System.out.println("Có lỗi xãy ra");
+            JOptionPane.showMessageDialog(view, "Không thể tải dữ liệu, có lỗi xãy ra");
         }
     }
 
