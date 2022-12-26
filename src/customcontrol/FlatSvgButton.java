@@ -5,6 +5,9 @@
 package customcontrol;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
+import java.util.function.Function;
+
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
@@ -24,10 +27,26 @@ public class FlatSvgButton extends JButton {
         setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setMargin(new java.awt.Insets(2, 2, 3, 2));
+
     }
 
     public void setButtonText(String text) {
         setText(text);
+    }
+
+    public void setButtonContentColor(Color color) {
+        icon.setColorFilter(new FlatSVGIcon.ColorFilter(new Function<Color, Color>() {
+            @Override
+            public Color apply(Color t) {
+                return color;
+            }
+        }));
+        setForeground(color);
+    }
+
+    public void setButtonDefaultContentColor() {
+        setForeground(null);
+        icon.setColorFilter(null);
     }
 
 }

@@ -30,7 +30,7 @@ public class ProductModel {
         return ProductDAO.addProduct(product);
     }
 
-    public boolean deleteProduct(String productId) throws Exception {
+    public int deleteProduct(String productId) throws Exception {
         return ProductDAO.deleteProduct(productId);
     }
 

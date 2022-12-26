@@ -6,6 +6,8 @@ package dao;
 
 import databaseutil.DatabaseUtil;
 import entities.Product;
+import entities.Warehouse;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class ProductDAO extends DatabaseUtil {
     public static boolean addProduct(Product product) throws Exception {
         try {
 
-            String sql = "INSERT INTO tbl_product VALUE (?,?,?,?,?)";
+            String sql = "INSERT INTO tbl_product VALUE (?,?,?,?,?,?)";
 
             PreparedStatement ps = createPreparedStatement(sql);
 
@@ -28,7 +30,10 @@ public class ProductDAO extends DatabaseUtil {
             ps.setString(3, product.getProductName());
             ps.setString(4, product.getDescription());
             ps.setDouble(5, product.getPrice());
+            ps.setString(6, product.getImage());
 
+            Warehouse w = new Warehouse(product.getProductId(), 1);
+            WarehouseDAO.addWarehouse(w);
             int kq = ps.executeUpdate();
 
             System.out.println("Them thanh cong");
@@ -40,24 +45,34 @@ public class ProductDAO extends DatabaseUtil {
         return false;
     }
 
-    public static boolean deleteProduct(String productId) throws Exception {
+    public static int deleteProduct(String productId) throws Exception {
         try {
 
             String sql = "DELETE FROM tbl_product WHERE product_id = ?";
 
-            PreparedStatement ps = createPreparedStatement(sql);
+            // kiem tra kho
+            int qty = WarehouseDAO.getWarehouseQuantiy(productId);
+            if (qty == 0) {
 
-            ps.setString(1, productId);
+                WarehouseDAO.deleteWarehouse(productId); // xoa kho
 
-            int kq = ps.executeUpdate();
+                PreparedStatement ps = createPreparedStatement(sql);
 
-            System.out.println("Xoa thanh cong");
+                ps.setString(1, productId);
 
-            return (kq == 1);
+                int kq = ps.executeUpdate();
+
+                System.out.println("Xoa thanh cong");
+
+                return kq;
+            } else {
+                return 2;
+            }
+
         } catch (Exception e) {
             System.out.println("Loi xoa du lieu " + e);
         }
-        return false;
+        return 3;
     }
 
     public static boolean editProduct(String productId, Product product) throws Exception {
@@ -67,7 +82,8 @@ public class ProductDAO extends DatabaseUtil {
                     + "category_id = ?, "
                     + "product_name = ?, "
                     + "description = ?, "
-                    + "price = ?"
+                    + "price = ?, "
+                    + "image_name = ?"
                     + "WHERE product_id = ?";
 
             PreparedStatement ps = createPreparedStatement(sql);
@@ -76,7 +92,8 @@ public class ProductDAO extends DatabaseUtil {
             ps.setString(2, product.getProductName());
             ps.setString(3, product.getDescription());
             ps.setDouble(4, product.getPrice());
-            ps.setString(5, productId);
+            ps.setString(5, product.getImage());
+            ps.setString(6, productId);
 
             int kq = ps.executeUpdate();
 
@@ -108,7 +125,8 @@ public class ProductDAO extends DatabaseUtil {
                         data.getString(2),
                         data.getString(3),
                         data.getString(4),
-                        Double.parseDouble(data.getString(5)));
+                        Double.parseDouble(data.getString(5)),
+                        data.getString(6));
 
                 ds.add(sp);
             }
@@ -143,7 +161,8 @@ public class ProductDAO extends DatabaseUtil {
                         data.getString(2),
                         data.getString(3),
                         data.getString(4),
-                        Double.parseDouble(data.getString(5)));
+                        Double.parseDouble(data.getString(5)),
+                        data.getString(6));
 
                 ds.add(sp);
             }
@@ -178,7 +197,8 @@ public class ProductDAO extends DatabaseUtil {
                         data.getString(2),
                         data.getString(3),
                         data.getString(4),
-                        Double.parseDouble(data.getString(5)));
+                        Double.parseDouble(data.getString(5)),
+                        data.getString(6));
 
                 ds.add(sp);
             }

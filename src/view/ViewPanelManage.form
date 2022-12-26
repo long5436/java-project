@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+        <EmptyBorder/>
+      </Border>
+    </Property>
   </Properties>
-  <SyntheticProperties>
-    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
-  </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -18,14 +18,13 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-6,0,0,3,-24"/>
   </AuxValues>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="tabPaneMain">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="view.ViewPanelProduct" name="viewPanelProduct1">
+        <Component class="view.ViewPanelProduct" name="viewPanelProduct">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="S&#x1ea3;n ph&#x1ea9;m">
@@ -34,7 +33,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="view.ViewPanelCategory" name="viewPanelCategory1">
+        <Component class="view.ViewPanelCategory" name="viewPanelCategory">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Lo&#x1ea1;i s&#x1ea3;n ph&#x1ea9;m">
@@ -50,15 +49,8 @@
     <CodeStatement>
       <CodeExpression id="1">
         <ExpressionOrigin>
-          <CodeExpression id="2">
-            <ExpressionOrigin>
-              <ExpressionProvider type="ComponentRef">
-                <ComponentRef name="."/>
-              </ExpressionProvider>
-            </ExpressionOrigin>
-          </CodeExpression>
-          <ExpressionProvider type="CodeMethod">
-            <CodeMethod name="getContentPane" class="javax.swing.JFrame" parameterTypes=""/>
+          <ExpressionProvider type="ComponentRef">
+            <ComponentRef name="."/>
           </ExpressionProvider>
         </ExpressionOrigin>
       </CodeExpression>
@@ -66,7 +58,7 @@
         <CodeMethod name="setLayout" class="java.awt.Container" parameterTypes="java.awt.LayoutManager"/>
       </StatementProvider>
       <Parameters>
-        <CodeExpression id="3">
+        <CodeExpression id="2">
           <ExpressionOrigin>
             <ExpressionProvider type="CodeConstructor">
               <CodeConstructor class="javax.swing.OverlayLayout" parameterTypes="java.awt.Container"/>

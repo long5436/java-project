@@ -47,11 +47,29 @@ public class AuthController {
                 User newUser = new User(userName, passWord);
 
                 try {
-                    boolean check = model.login(newUser);
-                    JOptionPane.showMessageDialog(view,
-                            check ? "Đăng nhập thành công" : "Đăng nhập thất bại, tài khoản hoặc mật khẩu không đúng");
+                    int check = model.login(newUser);
+                    String message = "";
 
-                    if (check) {
+                    switch (check) {
+                        case 1:
+                            message = "Đăng nhập thành công";
+                            break;
+                        case 2:
+                            message = "Đăng nhập thất bại, mật khẩu không đúng";
+                            break;
+                        case 3:
+                            message = "Đăng nhập thất bại, tài khoản không tồn tại";
+                            break;
+                        case 4:
+                            message = "Đăng nhập thất bại, không thể kết nối với máy chủ";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    JOptionPane.showMessageDialog(view, message);
+
+                    if (check == 1) {
                         view.setCheckLogin(true);
                         view.dispose();
                     }

@@ -36,7 +36,7 @@ public class AuthDAO extends DatabaseUtil {
         return false;
     }
 
-    public static boolean login(User user) throws Exception {
+    public static int login(User user) throws Exception {
         try {
             String sql = "SELECT * FROM tbl_user WHERE username = ?";
 
@@ -45,25 +45,30 @@ public class AuthDAO extends DatabaseUtil {
             ps.setString(1, user.getUsername());
 
             ResultSet data = ps.executeQuery();
-            data.next();
-            String hassPassword = data.getString(2);
+            // data.next();
+            while (data.next()) {
+                String hassPassword = data.getString(2);
 
-            if (!hassPassword.equals("")) {
+                if (!hassPassword.equals("")) {
 
-                boolean validPassword = argon2.verify(str + hassPassword, user.getPassword().toCharArray());
-                if (validPassword) {
-                    System.out.println("Dang nhap thanh cong");
-                    return true;
-                } else {
-                    System.out.println("dang nhap that bai, mat khau khong dung");
-                    return false;
+                    boolean validPassword = argon2.verify(str + hassPassword, user.getPassword().toCharArray());
+                    if (validPassword) {
+                        System.out.println("Dang nhap thanh cong");
+                        return 1;
+                    } else {
+                        System.out.println("dang nhap that bai, mat khau khong dung");
+                        return 2;
+                    }
                 }
             }
 
+            return 3; // tai khoan khong ton tai
+
         } catch (Exception e) {
             System.out.println("Dang nhap that bai");
+            return 4;
         }
 
-        return false;
+        // return 4;
     }
 }

@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JOptionPane;
 import model.Model;
 import view.ViewPanelCategory;
+import utils.MethodUtil;
 
 /**
  *
@@ -127,7 +128,7 @@ public class CategoryController {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int confirm = showMessageConfirm("Bạn có chắc muốn xóa không");
+                int confirm = MethodUtil.showMessageConfirm("Bạn có chắc muốn xóa không");
                 if (confirm == 0) {
 
                     int index = view.getTblCategoryView().getSelectedRow();
@@ -313,19 +314,4 @@ public class CategoryController {
         }
     }
 
-    private int showMessageConfirm(String message) {
-        Object[] options = { "Có", "Không" };
-        int confirm = JOptionPane.showOptionDialog(
-                null,
-                message,
-                "Xác nhận",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-
-        return confirm;
-
-    }
 }

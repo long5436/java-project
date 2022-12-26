@@ -4,9 +4,17 @@
  */
 package controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Color;
+
 import javax.swing.JFrame;
-import view.ViewManage;
+import javax.swing.JPanel;
+
 import model.Model;
+import model.WarehouseModel;
+import view.ViewPanelManage;
+import view.ViewPanelWarehouse;
 import view.ViewMain;
 
 /**
@@ -32,8 +40,48 @@ public class Controller {
     }
 
     private void init() {
-        // new CategoryController(view.getViewPanelCategory1(), model);
-        // new ProductController(view.getViewPanelProduct1(), model);
+
+        JPanel mainPanel = view.getPanelMain();
+
+        ViewPanelManage viewManage = new ViewPanelManage();
+        mainPanel.add(viewManage);
+        new CategoryController(viewManage.getViewPanelCategory(), model);
+        new ProductController(viewManage.getViewPanelProduct(), model);
+
+        view.getBtnManage().setButtonContentColor(Color.decode("#9999FF"));
+
+        view.getBtnWareHouse().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewPanelWarehouse warehouse = new ViewPanelWarehouse();
+                mainPanel.removeAll();
+                mainPanel.add(warehouse);
+                mainPanel.revalidate();
+                new WarehouseController(warehouse, new WarehouseModel());
+
+                view.getBtnWareHouse().setButtonContentColor(Color.decode("#9999FF"));
+                view.getBtnManage().setButtonDefaultContentColor();
+            }
+        });
+
+        view.getBtnManage().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewPanelManage viewManage = new ViewPanelManage();
+                mainPanel.removeAll();
+                mainPanel.add(viewManage);
+                mainPanel.revalidate();
+                new CategoryController(viewManage.getViewPanelCategory(), model);
+                new ProductController(viewManage.getViewPanelProduct(), model);
+
+                view.getBtnManage().setButtonContentColor(Color.decode("#9999FF"));
+                view.getBtnWareHouse().setButtonDefaultContentColor();
+
+            };
+
+        });
 
     }
 

@@ -18,7 +18,7 @@ public class AuthModel {
         return AuthDAO.addUser(user);
     }
 
-    public boolean login(User user) throws Exception {
+    public int login(User user) throws Exception {
         return AuthDAO.login(user);
     }
 }

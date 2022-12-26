@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package main;
 
-import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -17,25 +15,36 @@ import model.Model;
 import model.AuthModel;
 import controllers.AuthController;
 import controllers.Controller;
-import view.ViewManage;
+import java.awt.Insets;
+import java.util.Collections;
 import view.ViewLogin;
 import view.ViewMain;
+
+import utils.MethodUtil;
 
 /**
  *
  * @author Long
  */
 public class Main {
+
     public static void main(String[] args) {
         setTheme();
         runAppLogin();
+        // runAppMain();
+
     }
 
     private static void setTheme() {
         try {
-            FlatLaf theme = new FlatLightLaf();
-            // UIManager.put("Button.arc", 999);
-            UIManager.setLookAndFeel(theme);
+            FlatLightLaf.setGlobalExtraDefaults(Collections.singletonMap("@accentColor", "#9999FF")); // đổi màu chủ đạo
+            // UIManager.setLookAndFeel(theme);
+            FlatLightLaf.setup();
+            UIManager.put("TextComponent.arc", 4);
+            UIManager.put("TabbedPane.selectedBackground", "#FFF");
+            UIManager.put("Component.innerFocusWidth", 1);
+            UIManager.put("ScrollBar.thumbArc", 999);
+            UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));// theme
         } catch (Exception e) {
         }
     }
@@ -53,8 +62,13 @@ public class Main {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                main.dispose();
-                runAppLogin();
+                int messageConfirm = MethodUtil.showMessageConfirm("Bạn có muốn đăng xuất không?");
+                if (messageConfirm == 0) {
+                    main.dispose();
+                    runAppLogin();
+
+                }
+
             }
 
         };
