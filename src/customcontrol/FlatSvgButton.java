@@ -7,7 +7,6 @@ package customcontrol;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.util.function.Function;
-
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
@@ -48,5 +47,4 @@ public class FlatSvgButton extends JButton {
         setForeground(null);
         icon.setColorFilter(null);
     }
-
 }

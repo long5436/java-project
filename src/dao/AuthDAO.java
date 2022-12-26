@@ -39,13 +39,9 @@ public class AuthDAO extends DatabaseUtil {
     public static int login(User user) throws Exception {
         try {
             String sql = "SELECT * FROM tbl_user WHERE username = ?";
-
             PreparedStatement ps = createPreparedStatement(sql);
-
             ps.setString(1, user.getUsername());
-
             ResultSet data = ps.executeQuery();
-            // data.next();
             while (data.next()) {
                 String hassPassword = data.getString(2);
 
@@ -61,14 +57,11 @@ public class AuthDAO extends DatabaseUtil {
                     }
                 }
             }
-
             return 3; // tai khoan khong ton tai
 
         } catch (Exception e) {
             System.out.println("Dang nhap that bai");
             return 4;
         }
-
-        // return 4;
     }
 }
